@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  function Btn({ text, changeValue }) {
+    console.log(`${text} render`);
+    return (
+      <button onClick={changeValue} style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10,
+      }}>{text}</button>
+    )
+  }
+  const MemorizedBtn = React.memo(Btn) // re-render 방지
+  const App = () => {
+    const [value, setValue] = React.useState("Save Changes");
+    const changeValue = () => setValue("Revert Changes")
+    return (
+      <div>
+        <Btn text={value} changeValue={changeValue} />
+        {/* 
+          - 함수형 컴포넌트를 호출하는 태그의 onClick에 들어있는 값은 실제로 이벤트리스너가 아니고 prop일 뿐임
+          - 함수형 컴포넌트 내부에 작성하는 이벤트가 이벤트리스너임
+         */}
+        <MemorizedBtn text="Continue" />
+      </div>
+    );
+  };
+  const root = document.getElementById("root")
+  ReactDOM.render(<App />, root);
+</script>
+
+</html>
