@@ -1,51 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-// 예시 2.
-function Hello() {
-  useEffect(() => {
-    console.log("created :)");
-    return () => console.log("destroyed :(");
-  }, []);
-  return <h1>Hello</h1>;
-}
+// To Do
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing((prev) => !prev);
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChange = (event) => setToDo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (toDo !== "") {
+      setToDos(current => [toDo, ...current]);
+    }
+    setToDo("");
+  };
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input type="text" placeholder="Write your to do..." onChange={onChange} value={toDo} />
+        <button>Add To Do</button>
+        <ul>
+          {toDos.map((item,index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </form>
     </div>
   );
 }
-
-// 예시 1.
-// function App() {
-//   const [counter, setValue] = useState(0);
-//   const [keyword, setKeyword] = useState("");
-//   const onClick = () => setValue((prev) => prev + 1);
-//   const onChange = (event) => setKeyword(event.target.value);
-//   console.log("i run all the time");
-//   useEffect(() => {
-//     console.log("CALL THE API...");
-//   }, []);
-//   useEffect(() => {
-//     if (keyword !== "" && keyword.length > 5) {
-//       console.log("search for", keyword);
-//     }
-//   }, [keyword]);
-//   return (
-//     <div>
-//       <input
-//         onChange={onChange}
-//         type="text"
-//         placeholder="Search here..."
-//         value={keyword}
-//       />
-//       <h1>{counter}</h1>
-//       <button onClick={onClick}>click me</button>
-//     </div>
-//   );
-// }
 
 export default App;
