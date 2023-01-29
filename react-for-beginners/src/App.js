@@ -1,51 +1,14 @@
-import { useState, useEffect } from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
 
-// 예시 2.
-function Hello() {
-  useEffect(() => {
-    console.log("created :)");
-    return () => console.log("destroyed :(");
-  }, []);
-  return <h1>Hello</h1>;
-}
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing((prev) => !prev);
-  return (
-    <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
-    </div>
-  );
+  return <Router>
+    <Routes>
+      <Route path="/movie/:id" element={<Detail />}/>
+      <Route path="/" element={<Home />}/> {/* path경로를 /으로 작성 시 home으로 이동한다는 의미*/}
+    </Routes>
+  </Router>;
 }
-
-// 예시 1.
-// function App() {
-//   const [counter, setValue] = useState(0);
-//   const [keyword, setKeyword] = useState("");
-//   const onClick = () => setValue((prev) => prev + 1);
-//   const onChange = (event) => setKeyword(event.target.value);
-//   console.log("i run all the time");
-//   useEffect(() => {
-//     console.log("CALL THE API...");
-//   }, []);
-//   useEffect(() => {
-//     if (keyword !== "" && keyword.length > 5) {
-//       console.log("search for", keyword);
-//     }
-//   }, [keyword]);
-//   return (
-//     <div>
-//       <input
-//         onChange={onChange}
-//         type="text"
-//         placeholder="Search here..."
-//         value={keyword}
-//       />
-//       <h1>{counter}</h1>
-//       <button onClick={onClick}>click me</button>
-//     </div>
-//   );
-// }
 
 export default App;
