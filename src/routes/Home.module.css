@@ -1,0 +1,26 @@
+.inner_container{
+  width:1000px;
+  margin:0 auto;
+  padding:50px 0;
+}
+.title{
+  font-size:30px;
+  padding-top:50px;
+}
+.title span{
+  background: linear-gradient(135deg, #e63b60 0%,#151a7b 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.list_movie{
+  display:flex;
+  flex-wrap:wrap;
+}
+.list_movie li{
+  width:calc(100%/2 - 30px);
+  margin-top:40px;
+  padding-top:30px;
+}
+.list_movie li + li:not(li:nth-child(odd)){
+  padding-left:30px;
+}
